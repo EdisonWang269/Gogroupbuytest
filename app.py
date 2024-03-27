@@ -14,7 +14,7 @@ config.read('config.ini')
 line_bot_api = LineBotApi(config['line-bot']['channel_access_token'])
 handler = WebhookHandler(config['line-bot']['channel_secret'])
 
-@app.route("/callback", method=['POST'])
+@app.route("/callback", methods=['POST'])
 def callback():
     signature = request.headers['X-Line-Signature']
 
