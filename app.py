@@ -1,22 +1,7 @@
-from flask import Flask, request, abort
-
-from linebot.v3 import (
-    WebhookHandler
-)
-from linebot.v3.exceptions import (
-    InvalidSignatureError
-)
-from linebot.v3.messaging import (
-    Configuration,
-    ApiClient,
-    MessagingApi,
-    ReplyMessageRequest,
-    TextMessage
-)
-from linebot.v3.webhooks import (
-    MessageEvent,
-    TextMessageContent
-)
+from flask import Flask, abort, request
+from linebot import LineBotApi, WebhookHandler
+from linebot.exceptions import InvalidSignatureError
+from linebot.models import MessageEvent, TextMessage, TextSendMessage
 
 import configparser
 
@@ -25,7 +10,7 @@ app = Flask(__name__)
 config = configparser.ConfigParser()
 config.read('config.ini')
 
-line_bot_api = Configuration(config['line-bot']['channel_access_token'])
+line_bot_api = LineBotApi(config['line-bot']['channel_access_token'])
 handler = WebhookHandler(config['line-bot']['channel_secret'])
 
 @app.route("/callback", methods=['POST'])
@@ -65,4 +50,4 @@ def pretty_echo(event):
         )
 
 if __name__ == "__main__":
-    app.run()
+    app.run('0.0.0.0')
