@@ -10,8 +10,7 @@ import git
 
 app = Flask(__name__)
 
-project_folder = os.path.expanduser('/home/wangpython/Gogroupbuy/Gogroupbuy')
-load_dotenv(os.path.join(project_folder, '.env'))
+load_dotenv()
 
 # config = configparser.ConfigParser()
 # config.read('/home/wangpython/Gogroupbuy/config.ini')
