@@ -12,8 +12,10 @@ app = Flask(__name__)
 config = configparser.ConfigParser()
 config.read('/home/wangpython/Gogroupbuy/config.ini')
 
-line_bot_api = LineBotApi(config['line-bot']['CHANNEL_ACCESS_TOKEN'])
-handler = WebhookHandler(config['line-bot']['CHANNEL_SECRET'])
+# line_bot_api = LineBotApi(config['line-bot']['CHANNEL_ACCESS_TOKEN'])
+# handler = WebhookHandler(config['line-bot']['CHANNEL_SECRET'])
+line_bot_api = LineBotApi('DGzsEwpVSMNXT8NceORHfbRcWOuGCNefvFro9DMbWKICr2epRM+sHm/r55nyabcIt/lN61sk9KRS6YFYLntZBuldwN2mcCc53LNdSe0xnHY4BAGETkrUIhoLx9UOw63wJBqj8O93yAfFdOBUkKKmLgdB04t89/1O/w1cDnyilFU=')
+handler = WebhookHandler('87f7509aa918628e7793d433d7c77636')
 
 @app.route('/git_update', methods=['POST'])
 def git_update():
