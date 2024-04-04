@@ -10,7 +10,7 @@ import git
 app = Flask(__name__)
 
 config = configparser.ConfigParser()
-config.read('config.ini')
+config.read('/home/wangpython/Gogroupbuy/config.ini')
 
 line_bot_api = LineBotApi(config['line-bot']['CHANNEL_ACCESS_TOKEN'])
 handler = WebhookHandler(config['line-bot']['CHANNEL_SECRET'])
