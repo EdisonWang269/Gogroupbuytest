@@ -5,6 +5,8 @@ from linebot.models import MessageEvent, TextMessage, TextSendMessage
 
 import configparser
 import os
+import git
+
 app = Flask(__name__)
 
 config = configparser.ConfigParser()
@@ -13,12 +15,20 @@ config.read('config.ini')
 line_bot_api = LineBotApi(config['line-bot']['CHANNEL_ACCESS_TOKEN'])
 handler = WebhookHandler(config['line-bot']['CHANNEL_SECRET'])
 
-# line_bot_api = LineBotApi(os.getenv('CHANNEL_ACCESS_TOKEN'))
-# handler = WebhookHandler(os.getenv('CHANNEL_SECRET'))
 
 @app.route('/')
 def home():
     return render_template("index.html")
+
+@app.route('/update_server', methods=['POST'])
+def webhook():
+    if request.method == 'POST':
+        repo = git.Repo('path/to/git_repo')
+        origin = repo.remotes.origin
+        origin.pull()
+        return 'Updated PythonAnywhere successfully', 200
+    else:
+        return 'Wrong event type', 400
 
 @app.route("/callback", methods=['POST'])
 def callback():
