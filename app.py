@@ -17,7 +17,7 @@ handler = WebhookHandler(config['line-bot']['CHANNEL_SECRET'])
 
 @app.route('/git_update', methods=['POST'])
 def git_update():
-    repo = git.Repo('../Gogroupbuy')
+    repo = git.Repo('./Gogroupbuy')
     origin = repo.remotes.origin
     repo.create_head('main',
                      origin.refs.master).set_tracking_branch(origin.refs.master).checkout()
