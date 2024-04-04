@@ -2,20 +2,24 @@ from flask import Flask, abort, render_template, request
 from linebot import LineBotApi, WebhookHandler
 from linebot.exceptions import InvalidSignatureError
 from linebot.models import MessageEvent, TextMessage, TextSendMessage
+from dotenv import load_dotenv
 
-import configparser
+# import configparser
 import os
 import git
 
 app = Flask(__name__)
 
-config = configparser.ConfigParser()
-config.read('/home/wangpython/Gogroupbuy/config.ini')
+project_folder = os.path.expanduser('/home/wangpython/Gogroupbuy/Gogroupbuy')
+load_dotenv(os.path.join(project_folder, '.env'))
+
+# config = configparser.ConfigParser()
+# config.read('/home/wangpython/Gogroupbuy/config.ini')
 
 # line_bot_api = LineBotApi(config['line-bot']['CHANNEL_ACCESS_TOKEN'])
 # handler = WebhookHandler(config['line-bot']['CHANNEL_SECRET'])
-line_bot_api = LineBotApi('DGzsEwpVSMNXT8NceORHfbRcWOuGCNefvFro9DMbWKICr2epRM+sHm/r55nyabcIt/lN61sk9KRS6YFYLntZBuldwN2mcCc53LNdSe0xnHY4BAGETkrUIhoLx9UOw63wJBqj8O93yAfFdOBUkKKmLgdB04t89/1O/w1cDnyilFU=')
-handler = WebhookHandler('87f7509aa918628e7793d433d7c77636')
+line_bot_api = LineBotApi(os.getenv('CHANNEL_ACCESS_TOKEN'))
+handler = WebhookHandler(os.getenv('CHANNEL_SECRET'))
 
 @app.route('/git_update', methods=['POST'])
 def git_update():
