@@ -2,23 +2,19 @@ from flask import Flask, abort, render_template, request
 from linebot import LineBotApi, WebhookHandler
 from linebot.exceptions import InvalidSignatureError
 from linebot.models import MessageEvent, TextMessage, TextSendMessage
-from dotenv import load_dotenv
 
 import configparser
-import os
 import git
 
 app = Flask(__name__)
 
-load_dotenv()
+config_path = '/home/wangpython/Gogroupbuy/config.ini'
 
 config = configparser.ConfigParser()
-config.read('/home/wangpython/Gogroupbuy/config.ini')
+config.read(config_path)
 
 line_bot_api = LineBotApi(config['line-bot']['CHANNEL_ACCESS_TOKEN'])
 handler = WebhookHandler(config['line-bot']['CHANNEL_SECRET'])
-# line_bot_api = LineBotApi(os.getenv('CHANNEL_ACCESS_TOKEN'))
-# handler = WebhookHandler(os.getenv('CHANNEL_SECRET'))
 
 @app.route('/git_update', methods=['POST'])
 def git_update():
